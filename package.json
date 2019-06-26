@@ -1,0 +1,25 @@
+{
+  "name": "style_cheat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mosapride/style_cheat.git"
+  },
+  "keywords": [
+    "style"
+  ],
+  "author": "mosapride",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mosapride/style_cheat/issues"
+  },
+  "homepage": "https://github.com/mosapride/style_cheat#readme",
+  "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.9.0"
+  }
+}

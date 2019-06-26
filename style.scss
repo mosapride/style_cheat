@@ -1,0 +1,102 @@
+button {
+
+  // フラットボタン
+  &.button1 {
+    $PRIMARY_COLOR: green;
+    $SECONDARY_COLOR: white;
+    background-color: $PRIMARY_COLOR;
+    border-style: none;
+    padding: 10px 10px;
+    color: $SECONDARY_COLOR;
+    transition: .3s;
+    font-size: 1em;
+    cursor: pointer;
+
+    &:hover {
+      opacity: .8;
+    }
+
+    &:active {
+      opacity: .4;
+      transition: none;
+    }
+
+    .button-icon {
+      &::before {
+        content: ' ';
+        white-space: pre;
+      }
+
+      &::after {
+        content: ' ';
+        white-space: pre;
+      }
+    }
+  }
+
+  // フラットボタン + 丸み
+  &.button1-radius {
+    @extend .button1;
+    border-radius: 5px;
+  }
+
+  // アウトラインボタン
+  &.button2 {
+    $PRIMARY_COLOR: navy;
+    $SECONDARY_COLOR: white;
+    border: 2px solid $PRIMARY_COLOR;
+    background-color: $SECONDARY_COLOR;
+    color: $PRIMARY_COLOR;
+    padding: 10px 10px;
+    transition: .3s;
+    cursor: pointer;
+
+    &:hover {
+      border: 2px solid $SECONDARY_COLOR;
+      background-color: $PRIMARY_COLOR;
+      color: $SECONDARY_COLOR;
+    }
+
+    &:active {
+      opacity: .4;
+      transition: none;
+    }
+  }
+
+  // アウトラインボタン + 丸み
+  &.button2-radius {
+    @extend .button2;
+    border-radius: 5px;
+  }
+}
+
+.grid-wrapper1 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  // カラム(横)間の隙間
+  column-gap: 5px;
+  // 行(縦)間の隙間
+  row-gap: 5px;
+
+  >div {
+    border: 1px solid gray;
+  }
+}
+
+.grid-wrapper2 {
+  display: grid;
+  grid-template-columns: 500px repeat(2, 1fr);
+  // カラム(横)間の隙間
+  column-gap: 5px;
+  // 行(縦)間の隙間
+  row-gap: 5px;
+
+  >div {
+    border: 1px solid gray;
+  }
+}
+
+.i-red {
+  color: red;
+  font-size: 10px;
+}
