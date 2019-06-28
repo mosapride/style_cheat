@@ -1,7 +1,7 @@
 button {
 
   // フラットボタン
-  &.button1 {
+  &.flat {
     $PRIMARY_COLOR: green;
     $SECONDARY_COLOR: white;
     background-color: $PRIMARY_COLOR;
@@ -20,28 +20,16 @@ button {
       opacity: .4;
       transition: none;
     }
-
-    .button-icon {
-      &::before {
-        content: ' ';
-        white-space: pre;
-      }
-
-      &::after {
-        content: ' ';
-        white-space: pre;
-      }
-    }
   }
 
   // フラットボタン + 丸み
-  &.button1-radius {
-    @extend .button1;
+  &.flat-radius {
+    @extend .flat;
     border-radius: 5px;
   }
 
   // アウトラインボタン
-  &.button2 {
+  &.outline {
     $PRIMARY_COLOR: navy;
     $SECONDARY_COLOR: white;
     border: 2px solid $PRIMARY_COLOR;
@@ -64,8 +52,8 @@ button {
   }
 
   // アウトラインボタン + 丸み
-  &.button2-radius {
-    @extend .button2;
+  &.outline-radius {
+    @extend .outline;
     border-radius: 5px;
   }
 }
@@ -99,4 +87,37 @@ button {
 .i-red {
   color: red;
   font-size: 10px;
+}
+
+
+// スマホ用
+@media screen and (max-width: 450px) {
+  .dummy {
+    width: calc(100vw - 2px);
+    background-color: blue;
+  }
+}
+
+// タブレット
+@media screen and (min-width: 450px) {
+  .dummy {
+    width: calc(100vw - 2px);
+    background-color: red;
+  }
+}
+
+// PC
+@media screen and (min-width: 1000px) {
+  .dummy {
+    width: calc(100vw - 2px);
+    background-color: blue;
+  }
+}
+
+// 大型ディスプレイ
+@media (min-width: 1400px) {
+  .dummy {
+    width: calc(100vw - 2px);
+    background-color: red;
+  }
 }
