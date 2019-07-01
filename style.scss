@@ -1,24 +1,156 @@
+// | 0(px) ～ SCREEN_S(px) ～ SCREEN_M(px) ～ SCREEN_L(px) ～          |
+// -------------------------------------------------------------------- 
+// |(      s       )(       m      )(       l      )(       xl        )|
+// --------------------------------------------------------------------
+// |(              s-m             )(       l      )(       xl        )|
+// --------------------------------------------------------------------
+// |(              s-m             )(             l-xl                )|
+// --------------------------------------------------------------------
+// |(                      s-l                     )(       xl        )|
+// --------------------------------------------------------------------
+// |(      s       )(       m      )(              l-xl               )|
+// --------------------------------------------------------------------
+// |(      s       )(              m-l             )(       xl        )|
+// --------------------------------------------------------------------
+// |(      s       )(                        m-xl                     )|
+// --------------------------------------------------------------------
+
+
+// スマホ用 450px未満 (iPhone6/7/8 375px ,iPhone6/7/8Plus 414px )
+$SCREEN_S : 450px;  // phone
+$SCREEN_M : 1000px; // tablet
+$SCREEN_L : 1400px; // pc
+
+@mixin screen-s {
+  @media screen and (min-width : 0px) and (max-width : $SCREEN_S) {
+    @content;
+  }
+}
+
+@mixin screen-s-m {
+  @media screen and (min-width : 0px) and (max-width : $SCREEN_M) {
+    @content;
+  }
+}
+
+@mixin screen-s-l {
+  @media screen and (min-width : 0px) and (max-width : $SCREEN_L) {
+    @content;
+  }
+}
+
+@mixin screen-m {
+  @media screen and (min-width : $SCREEN_S) and (max-width : $SCREEN_M) {
+    @content;
+  }
+}
+
+@mixin screen-m-l {
+  @media screen and (min-width : $SCREEN_S) and (max-width : $SCREEN_L) {
+    @content;
+  }
+}
+
+@mixin screen-m-xl {
+  @media screen and (min-width : $SCREEN_S) {
+    @content;
+  }
+}
+
+@mixin screen-l {
+  @media screen and (min-width : $SCREEN_M) and (max-width : $SCREEN_L) {
+    @content;
+  }
+}
+
+@mixin screen-l-xl {
+  @media screen and (min-width : $SCREEN_M) {
+    @content;
+  }
+}
+
+@mixin screen-xl {
+  @media screen and (min-width : $SCREEN_L) {
+    @content;
+  }
+}
+
+
+html {
+  font-size: 16px;
+}
+
+h1 {
+  font-size: 1.75em;
+}
+
+h2 {
+  font-size: 1.5em;
+}
+
+h3 {
+  font-size: 1.1em;
+}
+
+h4 {
+  font-size: 1.05em;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  &.heading-bullet {
+    $BORDER_COLOR: #e5e5e5;
+    $BORDER_WIDTH: 7px;
+
+    &::before {
+      content: "";
+      display: inline-block;
+      position: relative;
+      top: -0.1em;
+      height: 1em;
+      margin-right: 8px;
+      border-left: $BORDER_WIDTH solid $BORDER_COLOR;
+      vertical-align: middle;
+    }
+
+    &.left-over::before {
+      width: 10px;
+      margin-left: calc(-10px - #{$BORDER_WIDTH});
+      margin-right: 0;
+    }
+  }
+
+  &.heading-border {
+    border-bottom: 2px solid #e5e5e5;
+  }
+}
+
+
 button {
 
   // フラットボタン
   &.flat {
     $PRIMARY_COLOR: green;
     $SECONDARY_COLOR: white;
-    background-color: $PRIMARY_COLOR;
-    border-style: none;
     padding: 10px 10px;
+
+    background-color: $PRIMARY_COLOR;
     color: $SECONDARY_COLOR;
+    border: 2px solid $PRIMARY_COLOR;
     transition: .3s;
-    font-size: 1em;
     cursor: pointer;
 
     &:hover {
-      opacity: .8;
+      background-color: $SECONDARY_COLOR;
+      color: $PRIMARY_COLOR;
+
     }
 
     &:active {
-      opacity: .4;
-      transition: none;
+      transition: .1s;
+      transform: scale(0.9);
     }
   }
 
@@ -32,10 +164,11 @@ button {
   &.outline {
     $PRIMARY_COLOR: navy;
     $SECONDARY_COLOR: white;
+    padding: 10px 10px;
+
     border: 2px solid $PRIMARY_COLOR;
     background-color: $SECONDARY_COLOR;
     color: $PRIMARY_COLOR;
-    padding: 10px 10px;
     transition: .3s;
     cursor: pointer;
 
@@ -46,8 +179,8 @@ button {
     }
 
     &:active {
-      opacity: .4;
-      transition: none;
+      transition: .1s;
+      transform: scale(0.9);
     }
   }
 
@@ -55,6 +188,31 @@ button {
   &.outline-radius {
     @extend .outline;
     border-radius: 5px;
+  }
+}
+
+.fover-bottom {
+  $LINE_COLOR: #222;
+  display: inline-block;
+  cursor: pointer;
+
+  &::after {
+    content: "";
+    display: block;
+    width: 0;
+    transition: width 0.3s;
+    border-bottom: 1px solid $LINE_COLOR;
+  }
+
+  &:hover {
+    &::after {
+      width: 100%;
+    }
+  }
+
+  &:active {
+    transition: .1s;
+    transform: scale(0.9);
   }
 }
 
@@ -74,6 +232,11 @@ button {
 .grid-wrapper2 {
   display: grid;
   grid-template-columns: 500px repeat(2, 1fr);
+
+  @include tab {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   // カラム(横)間の隙間
   column-gap: 5px;
   // 行(縦)間の隙間
@@ -90,32 +253,33 @@ button {
 }
 
 
-// スマホ用
-@media screen and (max-width: 450px) {
+
+@include screen-s() {
   .dummy {
-    width: calc(100vw - 2px);
+    width: 100%;
     background-color: blue;
   }
 }
 
-// タブレット
-@media screen and (min-width: 450px) {
+
+@include screen-m() {
   .dummy {
     width: calc(100vw - 2px);
     background-color: red;
   }
 }
 
-// PC
-@media screen and (min-width: 1000px) {
+
+
+@include screen-l() {
   .dummy {
     width: calc(100vw - 2px);
     background-color: blue;
   }
 }
 
-// 大型ディスプレイ
-@media (min-width: 1400px) {
+
+@include screen-xl() {
   .dummy {
     width: calc(100vw - 2px);
     background-color: red;
