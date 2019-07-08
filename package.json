@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/mosapride/style_cheat#readme",
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.9.0"
+    "@fortawesome/fontawesome-free": "^5.9.0",
+    "sass": "^1.22.3"
   }
 }

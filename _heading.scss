@@ -1,0 +1,66 @@
+$theme-colors: ('' : (font : #ffffff, back : #222),
+  -primary: (font : #ffffff, back : #222),
+  -secondary: (font : #222, back : #fff),
+  -success: (font : blue),
+  -warn: (font : red),
+);
+
+
+@each $key,
+$var in $theme-colors {
+
+  .font-test#{$key} {
+    @if map-has-key($var, font) {
+      color: map-get($var, font);
+    }
+
+    @if map-has-key($var, back) {
+      background-color: map-get($var, back);
+    }
+
+    @else {
+      // 透過色(初期値)
+      background-color: transparent;
+    }
+  }
+}
+
+h1,
+h2,
+h3,
+h4 {
+  $BORDER_COLOR: gray;
+  $ICON_COLOR: gray;
+  $BULLET_COLOR: gray;
+  $BULLET_WIDTH: 8px;
+  $BULLET_LEFT_MARGIN: 3px;
+
+  // 横縦線
+  &.heading-bullet {
+    border-left: $BULLET_WIDTH solid $BULLET_COLOR;
+    padding-left: calc(#{$BULLET_WIDTH} / 2 + #{$BULLET_LEFT_MARGIN});
+    // 左寄せ
+  }
+
+  &.heading-bullet-left-over {
+    @extend .heading-bullet;
+    padding-left: calc(#{$BULLET_WIDTH} + #{$BULLET_LEFT_MARGIN});
+    margin-left: calc((-2 * #{$BULLET_WIDTH}) + (-#{$BULLET_LEFT_MARGIN}));
+  }
+
+  // ICON
+  &.heading-icon::before {
+
+    font-family: "Font Awesome 5 Free";
+    content: "\f00c";
+    font-size: 1em;
+    color: $ICON_COLOR;
+    margin: 0 0.33em;
+  }
+
+  // 下線
+  &.heading-border {
+
+    border-bottom: 0.1em solid $BORDER_COLOR;
+  }
+}
