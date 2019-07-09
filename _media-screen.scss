@@ -1,0 +1,76 @@
+// |       ～ SCREEN_S(px) ～ SCREEN_M(px) ～ SCREEN_L(px) ～          |
+// -------------------------------------------------------------------- 
+// |(      sm      )(       md     )(       lg     )(       xl        )|
+// --------------------------------------------------------------------
+// |(             sm-md            )(       lg     )(       xl        )|
+// --------------------------------------------------------------------
+// |(             sm-md            )(            lg-xl                )|
+// --------------------------------------------------------------------
+// |(                     sm-lg                    )(       xl        )|
+// --------------------------------------------------------------------
+// |(      sm      )(       md     )(             lg-xl               )|
+// --------------------------------------------------------------------
+// |(      sm      )(            mm-lg             )(       xl        )|
+// --------------------------------------------------------------------
+// |(      sm      )(                       md-xl                     )|
+// --------------------------------------------------------------------
+
+
+// スマホ用 450px未満 (iPhone6/7/8 375px ,iPhone6/7/8Plus 414px )
+$SCREEN_SM : 450px; // phone
+$SCREEN_MD : 1000px; // tablet
+$SCREEN_LG : 1400px; // pc
+
+@mixin screen-sm {
+  @media screen and (min-width : 0px) and (max-width : $SCREEN_SM) {
+    @content;
+  }
+}
+
+@mixin screen-sm-md {
+  @media screen and (min-width : 0px) and (max-width : $SCREEN_MD) {
+    @content;
+  }
+}
+
+@mixin screen-sm-l {
+  @media screen and (min-width : 0px) and (max-width : $SCREEN_LG) {
+    @content;
+  }
+}
+
+@mixin screen-md {
+  @media screen and (min-width : $SCREEN_SM) and (max-width : $SCREEN_MD) {
+    @content;
+  }
+}
+
+@mixin screen-md-lg {
+  @media screen and (min-width : $SCREEN_SM) and (max-width : $SCREEN_LG) {
+    @content;
+  }
+}
+
+@mixin screen-md-xl {
+  @media screen and (min-width : $SCREEN_SM) {
+    @content;
+  }
+}
+
+@mixin screen-lg {
+  @media screen and (min-width : $SCREEN_MD) and (max-width : $SCREEN_LG) {
+    @content;
+  }
+}
+
+@mixin screen-lg-xl {
+  @media screen and (min-width : $SCREEN_MD) {
+    @content;
+  }
+}
+
+@mixin screen-xl {
+  @media screen and (min-width : $SCREEN_LG) {
+    @content;
+  }
+}

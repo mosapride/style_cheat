@@ -1,0 +1,34 @@
+// text color定義
+// ----------------------------------------------------------------
+// tc-#{$key}       : colorのみ、background-colorは透過
+// tc-#{$key}-bg    : color、background-colorを定義
+// tc-#{$key}-r-bg  : colorとbackground-colorの定義を逆転(r = Reverse)
+
+// 連想配列から色クラスの生成
+@each $key,
+$var in $theme-colors {
+  .tc-#{$key} {
+    @if map-has-key($var, font) {
+      color: map-get($var, font);
+      background-color: transparent;
+    }
+  }
+
+  .tc-#{$key}-bg {
+    @if map-has-key($var, font) {
+      color: map-get($var, font);
+    }
+    @if map-has-key($var, back) {
+      background-color: map-get($var, back);
+    }
+  }
+
+  .tc-#{$key}-r-bg {
+    @if map-has-key($var, back) {
+      color: map-get($var, back);
+    }
+    @if map-has-key($var, font) {
+      background-color: map-get($var, font);
+    }
+  }
+}
