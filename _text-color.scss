@@ -1,8 +1,11 @@
 // text color定義
 // ----------------------------------------------------------------
+// $theme-colorsによりtext-colorの定義を生成する。
+//
 // tc-#{$key}       : colorのみ、background-colorは透過
 // tc-#{$key}-bg    : color、background-colorを定義
 // tc-#{$key}-r-bg  : colorとbackground-colorの定義を逆転(r = Reverse)
+// ---------------------------------------------------
 
 // 連想配列から色クラスの生成
 @each $key,

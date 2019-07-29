@@ -1,0 +1,32 @@
+
+.grid-wrapper1 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  // カラム(横)間の隙間
+  column-gap: 5px;
+  // 行(縦)間の隙間
+  row-gap: 5px;
+
+  >div {
+    border: 1px solid gray;
+  }
+}
+
+.grid-wrapper2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  // grid-template-columns:  repeat(500px minmax(300px, 1fr));
+
+  // @include screen-md-lg() {
+  //   grid-template-columns: repeat(2, 1fr);
+  // }
+
+  // カラム(横)間の隙間
+  column-gap: 5px;
+  // 行(縦)間の隙間
+  row-gap: 5px;
+
+  >div {
+    border: 1px solid gray;
+  }
+}

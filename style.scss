@@ -22,6 +22,7 @@ $theme-colors : (
 @import "_text-color.scss";
 @import "_heading.scss";
 @import "_button.scss";
+@import "_disp-grid.scss";
 
 body {
   margin : 0;
@@ -51,61 +52,9 @@ h4 {
 
 
 
-.fover-bottom {
-  $LINE_COLOR: #222;
-  display: inline-block;
-  cursor: pointer;
 
-  &::after {
-    content: "";
-    display: block;
-    width: 0;
-    transition: width 0.3s;
-    border-bottom: 1px solid $LINE_COLOR;
-  }
 
-  &:hover {
-    &::after {
-      width: 100%;
-    }
-  }
 
-  &:active {
-    transition: .1s;
-    transform: scale(0.9);
-  }
-}
-
-.grid-wrapper1 {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  // カラム(横)間の隙間
-  column-gap: 5px;
-  // 行(縦)間の隙間
-  row-gap: 5px;
-
-  >div {
-    border: 1px solid gray;
-  }
-}
-
-.grid-wrapper2 {
-  display: grid;
-  grid-template-columns: 500px repeat(2, 1fr);
-
-  @include screen-md-lg() {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  // カラム(横)間の隙間
-  column-gap: 5px;
-  // 行(縦)間の隙間
-  row-gap: 5px;
-
-  >div {
-    border: 1px solid gray;
-  }
-}
 
 .i-red {
   color: red;

@@ -1,51 +1,73 @@
-// button定義
+// # button定義
+//
+// hover時、click時にスタイルが変更されるボタンタイプの定義を提供する。
+// prefixとして初期設定では`bt`を宣言する必要がある。またprefixは`$BUTTON_PREFIX`にて変更が可能である。
+// 
+// ## buttonタグでのclass定義
+// 
+// <button>タグを利用したテンプレートを提供する。
+// ボタンの色は`_text-color.scss`の`tc-#{$key}`のcolor、background-colorから設定する
+//
+// ### 定義方法
+// 
+// `bt ボタンタイプ 色定義`
+// 
+// `bt [flat | flat-radius | outline  | outline-radius] [tcによる色]`
+// 
+// ```html
+// <!-- example -->
+// <button class="bt flat tc-primary">ボタン</button>
+// ```
+// 
+// ### ボタンタイプ
+// 
+// flat           : フラットボタン
+// flat-radius    : フラット + 角丸
+// outline        : アウトライン
+// outline-radius : アウトライン + 角丸
+//   
+// ### 色定義
+//
+// _text-color.scss参照
+//
+// ---
+//
+// ## テキストタグでのclass定義
+// 
+// テキストタイプのボタンの定義を提供する。
+//
+// ### hover時に下線を表示する
+// 
+// ```html
+// this is <a class="bt text">button</a>.
+// ```
+// ## グループ化
+// 
+// buttonを列挙し、改行を行った場合に改行分のスペースが挿入される。それを防ぐために`font-size:0`で定義する必要がある。
+// `<div class="bt-group">`を宣言することによりスペースが無いbuttonの列挙が行える。
+//
+// ```html
+// <div class="bt-group">
+//    <button...
+//    <button...
+//    <button...
+//    <button...
+// </div>
+// ```
 
 
-@mixin color-button($PRIMARY_COLOR, $SECONDARY_COLOR) {
-  &.flat {
-    background-color: $PRIMARY_COLOR;
-    color: $SECONDARY_COLOR;
-    border: 2px solid $PRIMARY_COLOR;
+// buttonのPrefix名の設定
+$BUTTON_PREFIX : bt;
 
-    &:disabled,
-    &.disabled {
-      background-color: darken($PRIMARY_COLOR , 10%);
-      color: darken($SECONDARY_COLOR , 20%);
-      border: 2px solid darken($PRIMARY_COLOR , 10%);
-    }
 
-    &:not(:disabled):not(.disabled):hover {
-      background-color: $SECONDARY_COLOR;
-      color: $PRIMARY_COLOR;
-    }
-  }
 
-  &.outline {
-    border: 2px solid $PRIMARY_COLOR;
-    background-color: $SECONDARY_COLOR;
-    color: $PRIMARY_COLOR;
-
-    &:disabled,
-    &.disabled {
-      border: 2px solid darken($PRIMARY_COLOR , 10%);
-      background-color: darken($SECONDARY_COLOR, 10%);
-      color: darken($PRIMARY_COLOR , 20%);
-    }
-
-    &:not(:disabled):not(.disabled):hover {
-      border: 2px solid $SECONDARY_COLOR;
-      background-color: $PRIMARY_COLOR;
-      color: $SECONDARY_COLOR;
-    }
-  }
-
-}
-
+// buttonのレイアウト定義(色の設定は除く)
 @mixin base-botton() {
 
   // フラットボタン
   &.flat {
-    padding: 0.5em 0.5em;
+    padding: 0.75em;
+    margin: 0.25em 0;
     transition: .3s;
   }
 
@@ -57,7 +79,8 @@
 
   // アウトラインボタン
   &.outline {
-    padding: 0.5em 0.5em;
+    padding: 0.75em;
+    margin: 0.25em 0;
     transition: .3s;
   }
 
@@ -81,15 +104,96 @@
     outline: none;
   }
 
+  // fontawesomeアイコン利用時のための微調整。文字中央、ボタンサイズ(高さ)が変わらないように調整
+  i.fab,
+  i.fa,
+  i.fas {
+    font-size: 1.8em;
+    margin-top: -0.2em;
+    margin-bottom: -0.6em;
+  }
+
 }
 
+// buttonの色に関する設定
+@mixin color-button($PRIMARY_COLOR, $SECONDARY_COLOR) {
+  &.flat {
+    background-color: $PRIMARY_COLOR;
+    color: $SECONDARY_COLOR;
+    border: 2px solid $PRIMARY_COLOR;
+
+    &:disabled,
+    &.disabled {
+      background-color: darken($PRIMARY_COLOR, 10%);
+      color: darken($SECONDARY_COLOR, 20%);
+      border: 2px solid darken($PRIMARY_COLOR, 10%);
+    }
+
+    &:not(:disabled):not(.disabled):hover {
+      background-color: $SECONDARY_COLOR;
+      color: $PRIMARY_COLOR;
+    }
+  }
+
+  &.outline {
+    border: 2px solid $PRIMARY_COLOR;
+    background-color: $SECONDARY_COLOR;
+    color: $PRIMARY_COLOR;
+
+    &:disabled,
+    &.disabled {
+      border: 2px solid darken($PRIMARY_COLOR, 10%);
+      background-color: darken($SECONDARY_COLOR, 10%);
+      color: darken($PRIMARY_COLOR, 20%);
+    }
+
+    &:not(:disabled):not(.disabled):hover {
+      border: 2px solid $SECONDARY_COLOR;
+      background-color: $PRIMARY_COLOR;
+      color: $SECONDARY_COLOR;
+    }
+  }
+}
+
+// Buttonのレイアウトの実装
+.#{$BUTTON_PREFIX} {
+  @include base-botton();
+}
+
+// Buttonの色設定の実装
 @each $key,
 $var in $theme-colors {
-  .bt.tc-#{$key} {
+  .#{$BUTTON_PREFIX}.tc-#{$key} {
     @include color-button(map-get($var, font), map-get($var, back));
   }
 }
 
-.bt {
-  @include base-botton();
+.#{$BUTTON_PREFIX}-group {
+  font-size: 0;
+}
+
+
+.#{$BUTTON_PREFIX}.text {
+  $LINE_COLOR: #222;
+  display: inline-block;
+  cursor: pointer;
+
+  &::after {
+    content: "";
+    display: block;
+    width: 0;
+    transition: width 0.3s;
+    border-bottom: 1px solid $LINE_COLOR;
+  }
+
+  &:hover {
+    &::after {
+      width: 100%;
+    }
+  }
+
+  &:active {
+    transition: .1s;
+    transform: scale(0.9);
+  }
 }

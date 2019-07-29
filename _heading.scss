@@ -7,9 +7,9 @@ main {
   h2,
   h3,
   h4 {
-    $BORDER_COLOR: gray;
-    $ICON_COLOR: gray;
+    $BORDER_BOTTOM_COLOR: gray;
     $BULLET_COLOR: gray;
+    $ICON_COLOR: gray;
     $BULLET_WIDTH: 8px;
     $BULLET_LEFT_MARGIN: 3px;
 
@@ -31,7 +31,7 @@ main {
 
       font-family: "Font Awesome 5 Free";
       // see : https://fontawesome.com/icons?d=gallery
-      content: "\f00c";
+      content: "\f105";
       font-size: 1em;
       color: $ICON_COLOR;
       margin: 0 0.33em;
@@ -39,8 +39,11 @@ main {
 
     // 下線
     &.heading-border {
+      border-bottom: 0.1em solid $BORDER_BOTTOM_COLOR;
+    }
 
-      border-bottom: 0.1em solid $BORDER_COLOR;
+    &.first-letter-big::first-letter {
+      font-size: 1.5em;
     }
   }
 }
